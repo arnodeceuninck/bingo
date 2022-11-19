@@ -30,23 +30,24 @@
         "KUL heeft groot ego",
         "Iemand krijgt een slappe lach",
         "Iemand maakt een domme opmerking",
-        "De pizza's/broodjes zijn er",
-        "Vraag waarvan antwoord tss  stukken stond",
+        "Pizza's/broodjes zijn er",
+        "Vraag waarvan antwoord tss stukken stond",
         "Microfoon vergeten aanzetten",
         "Microfoon werkt niet",
         "Wifi werkt niet/slecht",
         "Te weinig stopcontacten",
         "Iemand is onverstaanbaar",
         "Iemand houdt een monoloog",
-        "Het drinken is op",
-        "De staff verontschuldigt zich omdat de verslagen nog niet zijn afgewerkt",
+        "Drinken is op",
+        "Staff verontschuldigt zich omdat de verslagen nog niet zijn afgewerkt",
         "Iemand geeuwt",
         "Iemand moet vroeger door",
         "\"Kunnen jullie mij horen?\"",
         "Fout aantal stemmen",
         "Iemand fysiek praat zonder microfoon",
         "Iemand wilt uit VVS stappen",
-        "Iemand morst iets"
+        "Iemand morst iets",
+        "Chips zijn vervallen"
     ];
 
     function toggleColor(square) {
@@ -83,13 +84,13 @@
         var table = document.getElementById("bingotable");
 
         for (var i = 0; i < table.rows[0].cells.length; i++) {
-            console.log(table.rows[0].cells[i].offsetWidth);
+            // console.log(table.rows[0].cells[i].offsetWidth);
             colWidths.push(table.rows[0].cells[i].offsetWidth);
         }
 
         var rowHeights = [];
         for (var i = 0; i < table.rows.length; i++) {
-            console.log(table.rows[i].cells[0].offsetHeight);
+            // console.log(table.rows[i].cells[0].offsetHeight);
             rowHeights.push(table.rows[i].offsetHeight);
         }
         // take the max of the widths and heights
@@ -97,11 +98,11 @@
         var maxRowHeight = Math.max.apply(null, rowHeights);
         var max = Math.max(maxColWidth, maxRowHeight);
 
-        console.log("---");
-
-        console.log(maxColWidth);
-        console.log(maxRowHeight);
-        console.log(max);
+        // console.log("---");
+        //
+        // console.log(maxColWidth);
+        // console.log(maxRowHeight);
+        // console.log(max);
 
         // set table width
         table.style.width = max * 5 + "px";
