@@ -1,0 +1,283 @@
+<html>
+
+<!--src https://codepen.io/koriwade/pen/BoOqGM -->
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Cambay' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="utf-8"/>
+
+    <title>Bingo</title>
+
+    <!--    <link rel="stylesheet" type="text/css" href="bingocss.css"/>-->
+
+    <!--    <script type="text/javascript" src="scripts/bingojs.js"></script>-->
+
+</head>
+
+<script>
+    var bingos = ["Tegenstem zonder discussie",
+        "Stuk niet online",
+        "Stemlink werkt niet",
+        "Link tss stukken werkt niet",
+        "Niet in quorum",
+        "Er wordt gelachen met iemands dialect",
+        "Politiek incorrecte opmerking",
+        "AV volgt advies IAC niet",
+        "Naam en instelling vergeten zeggen",
+        "Geen input",
+        "KUL heeft groot ego",
+        "Iemand krijgt een slappe lach",
+        "Iemand maakt een domme opmerking",
+        "De pizza's/broodjes zijn er",
+        "Vraag waarvan antwoord tss  stukken stond",
+        "Microfoon vergeten aanzetten",
+        "Microfoon werkt niet",
+        "Wifi werkt niet/slecht",
+        "Te weinig stopcontacten",
+        "Iemand is onverstaanbaar",
+        "Iemand houdt een monoloog",
+        "Het drinken is op",
+        "De staff verontschuldigt zich omdat de verslagen nog niet zijn afgewerkt",
+        "Iemand geeuwt",
+        "Iemand moet vroeger door",
+        "\"Kunnen jullie mij horen?\"",
+        "Fout aantal stemmen",
+        "Iemand fysiek praat zonder microfoon",
+        "Iemand wilt uit VVS stappen",
+        "Iemand morst iets"
+    ];
+
+    function toggleColor(square) {
+        var currSquare = "square" + square;
+        if (document.getElementById(currSquare).className === "green") {
+            document.getElementById(currSquare).className = "white";
+        } else {
+            document.getElementById(currSquare).className = "green";
+        }
+    }
+
+</script>
+
+<script>
+    var numBingos = bingos.length;
+    var usedNums = new Array(numBingos);
+
+    function newCard() {
+        //Starting loop through each square card
+        for (var i = 0; i < 5; i++) {  //<--always this code for loops. change in red
+            for (var j = 0; j < 5; j++) {
+                if (i === 2 && j === 2) {
+                    continue;
+                }
+                setSquare(i+1, j+1);
+            }
+        }
+        fixCellSizes()
+    }
+
+    function fixCellSizes() {
+        // Get the widths of the columns in the table
+        var colWidths = [];
+        var table = document.getElementById("bingotable");
+
+        for (var i = 0; i < table.rows[0].cells.length; i++) {
+            console.log(table.rows[0].cells[i].offsetWidth);
+            colWidths.push(table.rows[0].cells[i].offsetWidth);
+        }
+
+        var rowHeights = [];
+        for (var i = 0; i < table.rows.length; i++) {
+            console.log(table.rows[i].cells[0].offsetHeight);
+            rowHeights.push(table.rows[i].offsetHeight);
+        }
+        // take the max of the widths and heights
+        var maxColWidth = Math.max.apply(null, colWidths);
+        var maxRowHeight = Math.max.apply(null, rowHeights);
+        var max = Math.max(maxColWidth, maxRowHeight);
+
+        console.log("---");
+
+        console.log(maxColWidth);
+        console.log(maxRowHeight);
+        console.log(max);
+
+        // set table width
+        table.style.width = max * 5 + "px";
+        // set table height
+        table.style.height = max * 5 + "px";
+
+        // set the width and height of all the cells to the max
+        for (var i = 0; i < table.rows.length; i++) {
+            for (var j = 0; j < table.rows[i].cells.length; j++) {
+                table.rows[i].cells[j].style.height = max + "px";
+                table.rows[i].cells[j].style.width = max + "px";
+            }
+        }
+    }
+
+    function setSquare(i, j) {
+        var currSquare = "square" + i.toString() + j.toString();
+        var newNum;
+
+
+        do {
+            newNum = getNewNum(); //(colPlace[thisSquare] * 15) + getNewNum() + 1;
+        }
+        while (usedNums[newNum]);
+
+        usedNums[newNum] = true;
+        document.getElementById(currSquare).innerHTML = bingos[newNum];
+    }
+
+    function getNewNum() {
+        return Math.floor(Math.random() * numBingos);
+
+    }
+
+    function anotherCard() {
+        for (var i = 1; i < usedNums.length; i++) {
+            usedNums[i] = false;
+        }
+
+        newCard();
+    }
+
+
+</script>
+
+<body onload="newCard()">
+
+<div id="container">
+    <div id="header">
+        <h1>VVS Bingo</h1>
+    </div>
+    <div id="content">
+        <table id="bingotable">
+            <tr>
+                <td id="square11" onclick="toggleColor(11)"> &nbsp;</td>
+                <td id="square12" onclick="toggleColor(12)"> &nbsp;</td>
+                <td id="square13" onclick="toggleColor(13)"> &nbsp;</td>
+                <td id="square14" onclick="toggleColor(14)"> &nbsp;</td>
+                <td id="square15" onclick="toggleColor(15)"> &nbsp;</td>
+            </tr>
+            <tr>
+                <td id="square21" onclick="toggleColor(21)"></td>
+                <td id="square22" onclick="toggleColor(22)"></td>
+                <td id="square23" onclick="toggleColor(23)"></td>
+                <td id="square24" onclick="toggleColor(24)"></td>
+                <td id="square25" onclick="toggleColor(25)"></td>
+            </tr>
+            <tr>
+                <td id="square31" onclick="toggleColor(31)"></td>
+                <td id="square32" onclick="toggleColor(32)"></td>
+                <td id="square33" class="free">Free!</td>
+                <td id="square34" onclick="toggleColor(34)"></td>
+                <td id="square35" onclick="toggleColor(35)"></td>
+            </tr>
+            <tr>
+                <td id="square41" onclick="toggleColor(41)"></td>
+                <td id="square42" onclick="toggleColor(42)"></td>
+                <td id="square43" onclick="toggleColor(43)"></td>
+                <td id="square44" onclick="toggleColor(44)"></td>
+                <td id="square45" onclick="toggleColor(45)"></td>
+            </tr>
+            <tr>
+                <td id="square51" onclick="toggleColor(51)"></td>
+                <td id="square52" onclick="toggleColor(52)"></td>
+                <td id="square53" onclick="toggleColor(53)"></td>
+                <td id="square54" onclick="toggleColor(54)"></td>
+                <td id="square55" onclick="toggleColor(55)"></td>
+        </table>
+    </div>
+
+    <!--<p><a href="#" onclick="anotherCard()">Click here</a> to create a new card</p>-->
+
+</div>
+
+
+</body>
+
+<script>
+
+</script>
+
+<style>
+    body {
+        background: #f43c76;
+        display: flex;
+        height: 100vh;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1, p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20pt;
+        font-weight: 600;
+        margin: 0 auto;
+        text-align: center;
+        padding: 30px;
+        color: white;
+    }
+
+    p a {
+        text-decoration: none;
+        color: #5dc4de;
+    }
+
+    #squarefree {
+        font-family: Helvetica;
+        margin: 0 auto;
+        background: #5dc4de;
+        text-align: center;
+        font-weight: 600;
+        font-size: 15pt;
+    }
+
+    #bingotable {
+        margin: 0 auto;
+        text-align: center;
+        width: 400px;
+        height: 400px;
+        border-collapse: collapse;
+        background: white;
+    }
+
+    th, td {
+        font-family: Helvetica;
+        margin: 0 auto;
+        text-align: center;
+        border: 3px solid black;
+        width: 20%;
+        cursor: pointer;
+    }
+
+    .orange {
+        background: #002e65;
+        color: white;
+    }
+
+    .green {
+        background: #7bc950;
+        color: white;
+    }
+
+    .free {
+        background: #7bc950;
+        color: white;
+        cursor: default;
+    }
+
+    .white {
+        background: white;
+        color: black;
+    }
+
+
+</style>
+
+
+</html>
